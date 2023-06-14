@@ -1,22 +1,14 @@
 <div class='container'>
-    <div class='column'>
-    <app-patient-search></app-patient-search>
-    </div>
-    <div class='column'>
-      <mat-drawer-container class="register-container">
-        <mat-drawer #drawer mode="side" position="end" [opened]="isDrawerOpen">
-          <!-- Drawer content -->
-          <h3>Register</h3>
+  <div class='search-component'>
+    <app-patient-search></app-patient-search> 
+  </div>
+          <div class="register-component">
+            <mat-card>
+              <mat-card-header><h3>Patient registeration</h3></mat-card-header>
+              <mat-card-content>
+          
           <app-patient-register (cancelEmitter)="handleCancelEvent($event)"/>
-        </mat-drawer>
-        <mat-drawer-content>
-  
-    <button mat-raised-button color="primary" (click)="toggleRegisterDrawer()">Register</button>
-  </mat-drawer-content>
-  
-</mat-drawer-container>
-    </div>
-</div>
-
-<div >
+              </mat-card-content>
+            </mat-card>  
+        </div>
 </div>

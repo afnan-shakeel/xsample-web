@@ -1,8 +1,12 @@
-<form #myForm="ngForm">
-    <div class="register-form">
+<form class="register-form" #myForm="ngForm">
+    <div>
         <mat-form-field>
             <mat-label>Civil No </mat-label>
             <input matInput type="number" name="civil_id" [(ngModel)]="formData.civil_id" required>
+          </mat-form-field>
+        <mat-form-field>
+            <mat-label>Mobile </mat-label>
+            <input matInput type="number" name="mobile_no" [(ngModel)]="formData.mobile_no" required>
           </mat-form-field>
         <div class='name-fields'>
     <mat-form-field>
@@ -21,7 +25,7 @@
     <div class='form-section2'>
     <mat-form-field>
         <mat-label>DOB</mat-label>
-        <input matInput [matDatepicker]="picker" type="date" name="dob" [(ngModel)]="selectDate" (dateChange)="onDateChange(selectDate)" required>
+        <input matInput [matDatepicker]="picker" name="dob" [(ngModel)]="formData.dob" (dateChange)="onDobChange(formData.dob)" required>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
@@ -33,24 +37,50 @@
 
     <mat-form-field>
     <mat-label>Gender</mat-label>
-      <mat-select name="gender" [(ngModel)]="selectedGender">
+      <mat-select name="gender" [(ngModel)]="formData.gender">
         <mat-option *ngFor="let option of gender" [value]="option">{{option}}</mat-option>
       </mat-select>
     </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Insurance No</mat-label>
-        <input matInput type="text" name="name" [(ngModel)]="formData.ins_no" required>
+    
+    
+    <mat-form-field *ngIf="insuranceCompany.length>0">
+    <mat-label>Insurance company</mat-label>
+      <mat-select [(ngModel)]="formData.selectedIns"  name="selectedIns" disableRipple>
+        <mat-option>-- --</mat-option>
+        <mat-option *ngFor="let option of insuranceCompany" [value]="option.ins_id">{{option.company_name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <mat-form-field *ngIf="formData.selectedIns">
+        <mat-label>Insurance Id</mat-label>
+        <input matInput type="text" name="card_no" [(ngModel)]="formData.card_no">
       </mat-form-field>
-  
+
+      <mat-form-field *ngIf="formData.selectedIns">
+        <mat-label>insurance valid from</mat-label>
+          <input matInput [matDatepicker]="picker2" [(ngModel)]="formData.valid_from" placeholder="Start date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+      <mat-form-field *ngIf="formData.selectedIns">
+        <mat-label>insurance valid upto</mat-label>
+          <input matInput [matDatepicker]="picker3" [(ngModel)]="formData.valid_upto" placeholder="Start date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+    </div>
+
+
+    <div class=''>
     <mat-form-field>
         <mat-label>Address</mat-label>
         <textarea matInput type="text" name="name" [(ngModel)]="formData.address"></textarea>
       </mat-form-field>
-  
-    
+    </div>
+
+    <div>
     <button class="form-button" mat-raised-button color="primary" (click)="closeDrawer()">CANCEL</button>
     <button class="form-button" mat-raised-button color="primary" (click)="onSubmit(formData)" [disabled]="myForm.invalid">SUBMIT</button>
-
+    </div>
 </div>
 </form>

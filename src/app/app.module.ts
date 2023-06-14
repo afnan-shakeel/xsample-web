@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -11,7 +11,9 @@ import { MatTableModule } from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar'
 import { HttpClientModule } from '@angular/common/http'
-
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 import { AppComponent } from './app.component';
 import { PatientComponent } from './patient/patient.component';
 import { InsuranceComponent } from './insurance/insurance.component';
@@ -24,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
 import { PatientSearchComponent } from './components/patient-search/patient-search.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PatientRegisterComponent } from './components/patient-register/patient-register.component';
+import { AddInsuranceComponent } from './components/add-insurance/add-insurance.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -39,14 +42,20 @@ const routes: Routes = [
     PatientComponent,
     PatientSearchComponent,
     PatientRegisterComponent,
+    AddInsuranceComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     MatToolbarModule,
+    MatListModule,
+    MatDividerModule,
+    
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
+    
+    MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatSidenavModule,

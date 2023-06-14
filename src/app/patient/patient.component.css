@@ -1,20 +1,28 @@
 .container {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .column {
-    flex: auto;
-    margin: 10px;
-  }
-  
-  .register-container {
-    height: 100vh;
-    width: 100vw;
-    display: contents;
-  }
+  margin: 10px;
+}
 
-  mat-drawer {
+.column {
+  flex: auto;
+  margin: 10px;
+}
+
+.search-component {
+  padding: 10px;
+}
+
+.register-component mat-card {
+  width: fit-content;
+  padding: 4px;
+}
+
+.register-container {
+  height: 100vh;
+  width: max-content;
+  display: contents;
+}
+
+mat-drawer {
   background-color: #f2f2f2;
   padding: 16px;
 }

@@ -1,20 +1,22 @@
 
   .register-form {
-    max-width: 400px;
+    align-items: end;
+    max-width: 80%;
     margin: 0 auto;
     padding: 20px;
     background-color: #f3f3f3;
   }
   
   .register-form mat-form-field {
-    width: 100%;
+    /* width: 100%; */
+    padding: 8px;
     height: fit-content;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
   }
   
   .name-fields {
     display: flex;
-    padding: 8px;
+    /* padding: 8px; */
     align-items: flex-start;
   }
   .form-section2 {

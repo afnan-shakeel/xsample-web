@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+// import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { ApiService } from '../../ApiService';
@@ -13,11 +14,25 @@ import { SnackBarService } from '../../services/snack-bar.service'
 export class PatientRegisterComponent {
   constructor(private apiService: ApiService, private snackbar: SnackBarService) { }
   gender: string[] = ['MALE', 'FEMALE']
-  selectedGender: string | undefined
-  formData: any = {}
-  selectDate!: Date;
-  calculatedAge!: number;
 
+  formData: any = {}
+  calculatedAge!: number;
+  insuranceCompany: any[] = []
+
+  ngOnInit(){
+    this.apiService.fetchData('insurance').subscribe(
+      (response)=>{
+        console.log('ins res ',response)
+        if(response.message!='success'){
+           this.snackbar.openSnackbar('error','failed to fetch insurance list')
+        }
+        this.insuranceCompany = response.data
+      },
+      (error)=>{
+        console.error(error)
+      }
+    )
+  }
   calculateAge(dateOfBirth: any) {
     const today = new Date();
     const birthDate = new Date(dateOfBirth);
@@ -31,10 +46,11 @@ export class PatientRegisterComponent {
 
     return age;
   }
-  onDateChange(date: any) {
+  onDobChange(date: any) {
     this.calculatedAge = this.calculateAge(date)
     console.log('age = ', this.calculatedAge)
   }
+  
 
   @Output() cancelEmitter: EventEmitter<any> = new EventEmitter();
 
@@ -49,8 +65,6 @@ export class PatientRegisterComponent {
       return
     }
     const payload = formData
-    payload.dob = this.selectDate
-    payload.gender = this.selectedGender
     console.log('reg payload', payload)
 
     this.apiService.submitData('patient/register', payload).subscribe(
@@ -58,8 +72,8 @@ export class PatientRegisterComponent {
         console.log(response)
         if (response.message.toLowerCase() == 'success') {
           this.snackbar.openSnackbar('success', 'registered')
-          formData = {}
-          this.closeDrawer()
+          this.formData = {}
+
         } else {
           this.snackbar.openSnackbar('error', response.data)
         }

@@ -1,5 +1,5 @@
 
-<input matInput class='input-search' type="text" [(ngModel)]="searchTerm" (input)="onInputChange()" placeholder="Search...">
+<input matInput class='input-search' type="search" [(ngModel)]="searchTerm" (input)="onInputChange()" placeholder="Search...">
 
 <div class='search-record'>
 <mat-table *ngIf="suggestions.length>0" [dataSource]="suggestions">
