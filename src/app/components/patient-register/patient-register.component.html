@@ -1,0 +1,56 @@
+<form #myForm="ngForm">
+    <div class="register-form">
+        <mat-form-field>
+            <mat-label>Civil No </mat-label>
+            <input matInput type="number" name="civil_id" [(ngModel)]="formData.civil_id" required>
+          </mat-form-field>
+        <div class='name-fields'>
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" name="name" [(ngModel)]="formData.first_name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Middle Name</mat-label>
+      <input matInput type="text" name="name" [(ngModel)]="formData.middle_name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" name="name" [(ngModel)]="formData.last_name">
+    </mat-form-field>
+    </div>
+    <div class='form-section2'>
+    <mat-form-field>
+        <mat-label>DOB</mat-label>
+        <input matInput [matDatepicker]="picker" type="date" name="dob" [(ngModel)]="selectDate" (dateChange)="onDateChange(selectDate)" required>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker ></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Age</mat-label>
+        <input matInput type="text" name="age" [(ngModel)]="calculatedAge" [readonly]=true>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+    <mat-label>Gender</mat-label>
+      <mat-select name="gender" [(ngModel)]="selectedGender">
+        <mat-option *ngFor="let option of gender" [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Insurance No</mat-label>
+        <input matInput type="text" name="name" [(ngModel)]="formData.ins_no" required>
+      </mat-form-field>
+  
+    <mat-form-field>
+        <mat-label>Address</mat-label>
+        <textarea matInput type="text" name="name" [(ngModel)]="formData.address"></textarea>
+      </mat-form-field>
+  
+    
+    <button class="form-button" mat-raised-button color="primary" (click)="closeDrawer()">CANCEL</button>
+    <button class="form-button" mat-raised-button color="primary" (click)="onSubmit(formData)" [disabled]="myForm.invalid">SUBMIT</button>
+
+</div>
+</form>

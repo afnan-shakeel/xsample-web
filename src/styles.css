@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* styles.css */
+
+/* Default panel class */
+.mat-snack-bar-container {
+    background-color: #323232;
+    color: #ffffff;
+  }
+  
+  /* Success panel class */
+  .mat-snack-bar-container.success-snackbar {
+    background-color: #28a745;
+  }
+  
+  /* Error panel class */
+  .mat-snack-bar-container.error-snackbar {
+    background-color: #dc3545;
+  }
+  
+  /* Warning panel class */
+  .mat-snack-bar-container.warning-snackbar {
+    background-color: #ffc107;
+  }
+  
+  /* Info panel class */
+  .mat-snack-bar-container.info-snackbar {
+    background-color: #17a2b8;
+  }
+  

@@ -1,0 +1,26 @@
+
+<input matInput class='input-search' type="text" [(ngModel)]="searchTerm" (input)="onInputChange()" placeholder="Search...">
+
+<div class='search-record'>
+<mat-table *ngIf="suggestions.length>0" [dataSource]="suggestions">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.patient_id }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="civil_id">
+      <mat-header-cell *matHeaderCellDef>CIVIL</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.civil_id }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="first_name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.first_name }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="mobile_no">
+      <mat-header-cell *matHeaderCellDef>Mobile</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.mobile_no }}</mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="['id','civil_id','first_name','mobile_no']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['id','civil_id','first_name','mobile_no'];"></mat-row>
+  </mat-table>
+</div>
