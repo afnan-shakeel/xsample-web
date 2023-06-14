@@ -1,1 +1,15 @@
-<p>insurance works!</p>
+<div>
+<mat-table ngIf="insuranceData.length>0" [dataSource]="insuranceData">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>Insurance ID</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.ins_id }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Company Name</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.company_name }}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="['id','name']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['id','name'];"></mat-row>
+  </mat-table>
+
+</div>

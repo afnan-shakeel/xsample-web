@@ -1,6 +1,9 @@
-.input-search {
-   width:  60%;
+.input-search input {
+   width:  32%;
     padding: 8px;
     font-size: 14px;
     border-radius: 4px;
+}
+.input-search button {
+    margin-left: 12px;
 }

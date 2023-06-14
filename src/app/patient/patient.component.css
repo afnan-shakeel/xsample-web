@@ -7,19 +7,36 @@
   margin: 10px;
 }
 
+.search-card {
+  display: flex;
+}
+/* .search-card app-patient-search{
+  flex: 0;
+  width: max-content;
+} */
 .search-component {
   padding: 10px;
+  display: flex;
+
+  
+}
+.search-component input{
+  flex: 1;
+  width: auto;
+}
+.search-component button{
+  width: auto;
 }
 
 .register-component mat-card {
-  width: fit-content;
+  width: auto;
   padding: 4px;
 }
 
 .register-container {
   height: 100vh;
   width: max-content;
-  display: contents;
+  display: flex;
 }
 
 mat-drawer {

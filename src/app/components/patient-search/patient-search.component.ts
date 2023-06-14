@@ -1,6 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
 import { ApiService } from '../../ApiService';
-import { ObservableLike } from 'rxjs';
 
 @Component({
   selector: 'app-patient-search',
@@ -9,12 +8,6 @@ import { ObservableLike } from 'rxjs';
 })
 export class PatientSearchComponent {
   constructor(private apiService: ApiService) { }
-  sample_data : any[] = [
-    { id: 1, name: 'Item 1', price: 10 },
-    { id: 2, name: 'Item 2', price: 20 },
-    { id: 3, name: 'Item 3', price: 30 }
-  ];
-  displayedColumns: string[] = ['id', 'name', 'price'];
   searchTerm: string = '';
   suggestions: any[] = []
   allSuggestions: any[] = []
@@ -42,7 +35,6 @@ export class PatientSearchComponent {
     }
     // this.suggestions = this.allSuggestions.filter(suggestion => suggestion.toLowerCase().includes(this.searchTerm.toLowerCase()))
     for (const item of this.allSuggestions){
-      console.log('sad',item)
       if(item.civil_id.toString().toLowerCase().includes(this.searchTerm.toLowerCase()) ||
            item.patient_id.toString().toLowerCase().includes(this.searchTerm.toLowerCase()) ||
            item.mobile_no.toString().toLowerCase().includes(this.searchTerm.toLowerCase())){
@@ -50,5 +42,9 @@ export class PatientSearchComponent {
         this.suggestions.push(item)
       }
     }
+  }
+
+  addDrawer(){
+    
   }
 }

@@ -1,6 +1,8 @@
 
+<div class='input-search'>
 <input matInput class='input-search' type="search" [(ngModel)]="searchTerm" (input)="onInputChange()" placeholder="Search...">
-
+<button mat-raised-button color="primary" (click)="addDrawer()">ADD</button>
+</div>
 <div class='search-record'>
 <mat-table *ngIf="suggestions.length>0" [dataSource]="suggestions">
     <ng-container matColumnDef="id">
@@ -19,8 +21,17 @@
       <mat-header-cell *matHeaderCellDef>Mobile</mat-header-cell>
       <mat-cell *matCellDef="let item">{{ item.mobile_no }}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+      <mat-cell *matCellDef="let item"> 
+        <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+           <mat-icon>edit</mat-icon>
+        </button>
+        
+      </mat-cell>
+    </ng-container>
   
-    <mat-header-row *matHeaderRowDef="['id','civil_id','first_name','mobile_no']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['id','civil_id','first_name','mobile_no'];"></mat-row>
+    <mat-header-row *matHeaderRowDef="['id','civil_id','first_name','mobile_no','action']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['id','civil_id','first_name','mobile_no','action'];"></mat-row>
   </mat-table>
 </div>
