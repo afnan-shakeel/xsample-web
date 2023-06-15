@@ -1,8 +1,8 @@
-<form class="register-form" #myForm="ngForm">
+<form class="register-form" (ngSubmit)="onSubmit(formData)">
     <div>
         <mat-form-field>
             <mat-label>Civil No </mat-label>
-            <input matInput type="number" name="civil_id" [(ngModel)]="formData.civil_id" required>
+            <input matInput type="number" name="civil_id" [(ngModel)]="formData.civil_id" required [readonly]='recievedData ? true: false'>
           </mat-form-field>
         <mat-form-field>
             <mat-label>Mobile </mat-label>
@@ -11,15 +11,15 @@
         <div class='name-fields'>
     <mat-form-field>
       <mat-label>First Name</mat-label>
-      <input matInput type="text" name="name" [(ngModel)]="formData.first_name">
+      <input matInput type="text" name="first_name" [(ngModel)]="formData.first_name">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Middle Name</mat-label>
-      <input matInput type="text" name="name" [(ngModel)]="formData.middle_name">
+      <input matInput type="text" name="middle_name" [(ngModel)]="formData.middle_name">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Last Name</mat-label>
-      <input matInput type="text" name="name" [(ngModel)]="formData.last_name">
+      <input matInput type="text" name="last_name" [(ngModel)]="formData.last_name">
     </mat-form-field>
     </div>
     <div class='form-section2'>
@@ -38,33 +38,33 @@
     <mat-form-field>
     <mat-label>Gender</mat-label>
       <mat-select name="gender" [(ngModel)]="formData.gender">
-        <mat-option *ngFor="let option of gender" [value]="option">{{option}}</mat-option>
+        <mat-option *ngFor="let option of gender" [value]="option.value">{{option.text}}</mat-option>
       </mat-select>
     </mat-form-field>
     
     
     <mat-form-field *ngIf="insuranceCompany.length>0">
     <mat-label>Insurance company</mat-label>
-      <mat-select [(ngModel)]="formData.selectedIns"  name="selectedIns" disableRipple>
+      <mat-select [(ngModel)]="formData.ins_id" name="ins_id" disableRipple>
         <mat-option>-- --</mat-option>
         <mat-option *ngFor="let option of insuranceCompany" [value]="option.ins_id">{{option.company_name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <div>
-      <mat-form-field *ngIf="formData.selectedIns">
+      <mat-form-field *ngIf="formData.ins_id">
         <mat-label>Insurance Id</mat-label>
-        <input matInput type="text" name="card_no" [(ngModel)]="formData.card_no">
+        <input matInput type="text" name="card_no" [(ngModel)]="formData.ins_card_no">
       </mat-form-field>
 
-      <mat-form-field *ngIf="formData.selectedIns">
+      <mat-form-field *ngIf="formData.ins_id">
         <mat-label>insurance valid from</mat-label>
-          <input matInput [matDatepicker]="picker2" [(ngModel)]="formData.valid_from" placeholder="Start date">
+          <input matInput name="valid_from" [matDatepicker]="picker2" [(ngModel)]="formData.valid_from" placeholder="Start date">
         <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
-      <mat-form-field *ngIf="formData.selectedIns">
+      <mat-form-field *ngIf="formData.ins_id">
         <mat-label>insurance valid upto</mat-label>
-          <input matInput [matDatepicker]="picker3" [(ngModel)]="formData.valid_upto" placeholder="Start date">
+          <input matInput name="valid_upto" [matDatepicker]="picker3" [(ngModel)]="formData.valid_upto" placeholder="Start date">
         <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
         <mat-datepicker #picker3></mat-datepicker>
     </mat-form-field>
@@ -79,8 +79,9 @@
     </div>
 
     <div>
-    <button class="form-button" mat-raised-button color="primary" (click)="closeDrawer()">CANCEL</button>
-    <button class="form-button" mat-raised-button color="primary" (click)="onSubmit(formData)" [disabled]="myForm.invalid">SUBMIT</button>
+    <button class="form-button" mat-raised-button color="primary" (click)="resetForm()">Reset</button>
+    <button *ngIf="!recievedData" type="submit" class="form-button" mat-raised-button color="primary" (click)="onSubmit(formData)" [disabled]="(formData.civil_id && formData.mobile_no)? false: true">SUBMIT</button>
+    <button *ngIf="recievedData" class="form-button" mat-raised-button color="primary" (click)="onSubmit(formData)" [disabled]="(formData.civil_id && formData.mobile_no)? false: true">UPDATE</button>
     </div>
 </div>
 </form>
