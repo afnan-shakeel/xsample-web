@@ -1,1 +1,37 @@
-<p>add-insurance works!</p>
+
+<div class='dialog-box'>
+<h3 mat-dialog-title>Insurance Details</h3>    
+
+<form #myForm="ngForm">
+    <mat-dialog-content>
+    <mat-form-field>
+       <mat-label>Company</mat-label>
+       <mat-select name="card" [(ngModel)]="formData.ins_id" required>
+        <mat-option *ngFor="let item of insCompanies" [value]="item.ins_id">{{item.company_name}}</mat-option>
+       </mat-select> 
+    </mat-form-field>
+    <mat-form-field>
+       <mat-label>Inusrance card no</mat-label>
+       <input matInput placeholder="Insurance No" name="card_no" [(ngModel)]="formData.card_no" required/> 
+    </mat-form-field>
+    <mat-form-field>
+       <mat-label>valid from</mat-label>
+       <input matInput [matDatepicker]="picker1" name="valid_from" [(ngModel)]="formData.valid_from" required>
+       <mat-hint>MM/DD/YYYY</mat-hint>
+       <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+       <mat-datepicker #picker1></mat-datepicker> 
+    </mat-form-field>
+    <mat-form-field>
+       <mat-label>Valid upto</mat-label>
+       <input matInput [matDatepicker]="picker2" name="valid_upto" [(ngModel)]="formData.valid_upto" required/>
+       <mat-hint>MM/DD/YYYY</mat-hint>
+       <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+       <mat-datepicker #picker2></mat-datepicker> 
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="formData" [disabled]="(formData.ins_id && formData.card_no && formData.valid_from && formData.valid_upto) ? false: true">SUBMIT</button>
+    <button mat-raised-button color="primary" (click)="closeDialog()">Cancel</button>
+</mat-dialog-actions>
+</form>
+</div>

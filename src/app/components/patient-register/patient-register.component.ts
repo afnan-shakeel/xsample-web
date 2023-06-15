@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-// import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ApiService } from '../../ApiService';
 import { SnackBarService } from '../../services/snack-bar.service'
 
@@ -8,24 +7,25 @@ import { SnackBarService } from '../../services/snack-bar.service'
   templateUrl: './patient-register.component.html',
   styleUrls: ['./patient-register.component.css']
 })
-export class PatientRegisterComponent {
+export class PatientRegisterComponent implements OnChanges {
   constructor(private apiService: ApiService, private snackbar: SnackBarService) { }
-  gender: string[] = ['MALE', 'FEMALE']
+  gender: any[] = [{ value: 'M', text: 'MALE' }, { id: 'F', text: 'FEMALE' }]
 
   formData: any = {}
   calculatedAge!: number;
   insuranceCompany: any[] = []
+  @Input() recievedData: any;
 
-  ngOnInit(){
+  ngOnInit() {
     this.apiService.fetchData('insurance').subscribe(
-      (response)=>{
-        console.log('ins res ',response)
-        if(response.message!='success'){
-           this.snackbar.openSnackbar('error','failed to fetch insurance list')
+      (response) => {
+        console.log('ins res ', response)
+        if (response.message != 'success') {
+          this.snackbar.openSnackbar('error', 'failed to fetch insurance list')
         }
         this.insuranceCompany = response.data
       },
-      (error)=>{
+      (error) => {
         console.error(error)
       }
     )
@@ -43,22 +43,32 @@ export class PatientRegisterComponent {
 
     return age;
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.recievedData && changes.recievedData.currentValue) {
+      console.log(changes.recievedData)
+      let temp_form = changes.recievedData.currentValue
+      if (temp_form.patient_insurance.length > 0) {
+        for (let item of Object.keys(temp_form.patient_insurance[0])) {
+          console.log(item)
+          temp_form[item] = temp_form.patient_insurance[0][item]
+        }
+        console.log('temp_obj ', temp_form)
+      }
+      this.formData = temp_form
+    }
+  }
   onDobChange(date: any) {
     this.calculatedAge = this.calculateAge(date)
     console.log('age = ', this.calculatedAge)
   }
-  
 
-  @Output() cancelEmitter: EventEmitter<any> = new EventEmitter();
-
-  closeDrawer() {
-    console.log("closeDrawer event")
-    this.cancelEmitter.emit("close drawer message");
+  resetForm() {
+    this.formData = {}
   }
 
   onSubmit(formData: any) {
-    if (Object.keys(formData).length == 0) {
-      this.snackbar.openSnackbar('error', 'empty input')
+    if (Object.keys(formData).length == 0 || !formData.civil_id || !formData.mobile_no) {
+      this.snackbar.openSnackbar('error', 'fill required fields')
       return
     }
     const payload = formData
@@ -70,7 +80,6 @@ export class PatientRegisterComponent {
         if (response.message.toLowerCase() == 'success') {
           this.snackbar.openSnackbar('success', 'registered')
           this.formData = {}
-
         } else {
           this.snackbar.openSnackbar('error', response.data)
         }
@@ -82,6 +91,5 @@ export class PatientRegisterComponent {
     )
 
   }
-
 
 }

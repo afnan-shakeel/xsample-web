@@ -1,0 +1,6 @@
+.bottom-right-button {
+    position: absolute;
+    bottom: 20px; /* Adjust the bottom distance as needed */
+    right: 20px; /* Adjust the right distance as needed */
+    background-color: royalblue;
+  }

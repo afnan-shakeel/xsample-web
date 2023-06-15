@@ -1,5 +1,5 @@
 <div>
-<mat-table ngIf="insuranceData.length>0" [dataSource]="insuranceData">
+<mat-table *ngIf="insuranceData.length>0" [dataSource]="insuranceData">
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>Insurance ID</mat-header-cell>
       <mat-cell *matCellDef="let item">{{ item.ins_id }}</mat-cell>
@@ -11,5 +11,7 @@
     <mat-header-row *matHeaderRowDef="['id','name']"></mat-header-row>
     <mat-row *matRowDef="let row; columns: ['id','name'];"></mat-row>
   </mat-table>
-
+  <button class="bottom-right-button" mat-icon-button color="white" aria-label="add icon">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>

@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatDialogModule} from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -27,6 +30,7 @@ import { PatientSearchComponent } from './components/patient-search/patient-sear
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PatientRegisterComponent } from './components/patient-register/patient-register.component';
 import { AddInsuranceComponent } from './components/add-insurance/add-insurance.component';
+import { InsuranceRegisterComponent } from './components/insurance-register/insurance-register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -43,13 +47,18 @@ const routes: Routes = [
     PatientSearchComponent,
     PatientRegisterComponent,
     AddInsuranceComponent,
+    InsuranceComponent,
+    InsuranceRegisterComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
+    MatPaginatorModule,
     MatToolbarModule,
     MatListModule,
+    MatTooltipModule,
     MatDividerModule,
+    MatDialogModule,
     
     MatButtonModule,
     MatSnackBarModule,

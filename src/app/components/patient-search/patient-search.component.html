@@ -21,17 +21,28 @@
       <mat-header-cell *matHeaderCellDef>Mobile</mat-header-cell>
       <mat-cell *matCellDef="let item">{{ item.mobile_no }}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="card_no">
+      <mat-header-cell *matHeaderCellDef>Insurance No</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.patient_insurance.length>0 ? item.patient_insurance[0].ins_card_no:'' }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="gender">
+      <mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.gender }}</mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
       <mat-cell *matCellDef="let item"> 
-        <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
-           <mat-icon>edit</mat-icon>
-        </button>
-        
+        <button class='action-button' mat-mini-fab color="primary" aria-label="edit patient icon" matTooltip="edit patient" (click)="editPatient(item)">
+           <mat-icon>edit</mat-icon></button>
+        <button class='action-button' (click)="openAddDialog(item.patient_id)" mat-mini-fab color="primary" aria-label="add insurance icon" matTooltip="add insurance" [disabled]="item.patient_insurance.length>0 ? true : false">
+           <mat-icon>add</mat-icon></button>
       </mat-cell>
     </ng-container>
   
-    <mat-header-row *matHeaderRowDef="['id','civil_id','first_name','mobile_no','action']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['id','civil_id','first_name','mobile_no','action'];"></mat-row>
+    <mat-header-row *matHeaderRowDef="['id','civil_id','first_name','mobile_no','card_no','gender','action']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['id','civil_id','first_name','mobile_no','card_no','gender','action'];"></mat-row>
   </mat-table>
+  
+
 </div>

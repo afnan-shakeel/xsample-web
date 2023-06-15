@@ -7,3 +7,12 @@
 .input-search button {
     margin-left: 12px;
 }
+.action-button{
+    padding: 8px;
+    margin-right: 3px;
+}
+
+.search-record{
+    max-height: 250px; /* Adjust the max-height value as needed */
+    overflow-y: auto;
+}

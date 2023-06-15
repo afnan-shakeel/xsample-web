@@ -31,4 +31,10 @@ export class PatientComponent {
     console.log("this.handleCancelEvent",data)
     if(data) this.toggleRegisterDrawer()
   }
+  editEventData: any;
+  handleEvent(data: any){
+    this.editEventData = data
+    console.log('recieved data from search',this.editEventData)
+
+  }
 }
