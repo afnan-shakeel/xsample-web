@@ -64,8 +64,7 @@
               "browserTarget": "xsample-web:build:production"
             },
             "development": {
-              "browserTarget": "xsample-web:build:development",
-              "proxyConfig": "src/../proxy.conf.mjs"
+              "browserTarget": "xsample-web:build:development"
             }
           },
           "defaultConfiguration": "development"

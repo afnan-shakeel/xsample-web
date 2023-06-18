@@ -1,7 +1,9 @@
 
-<div class='input-search'>
-<input matInput class='input-search' type="search" [(ngModel)]="searchTerm" (input)="onInputChange()" placeholder="Search...">
-<button mat-raised-button color="primary" (click)="addDrawer()">ADD</button>
+<div mat-dialog-content class='input-search'>
+<mat-form-field>
+  <mat-icon matPrefix>search</mat-icon>
+  <input matInput class='input-search' type="search" [(ngModel)]="searchTerm" (input)="onInputChange()" placeholder="Search...">
+</mat-form-field>
 </div>
 <div class='search-record'>
 <mat-table *ngIf="suggestions.length>0" [dataSource]="suggestions">
@@ -13,35 +15,20 @@
       <mat-header-cell *matHeaderCellDef>CIVIL</mat-header-cell>
       <mat-cell *matCellDef="let item">{{ item.civil_id }}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="first_name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.first_name }}</mat-cell>
-    </ng-container>
     <ng-container matColumnDef="mobile_no">
       <mat-header-cell *matHeaderCellDef>Mobile</mat-header-cell>
       <mat-cell *matCellDef="let item">{{ item.mobile_no }}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="card_no">
-      <mat-header-cell *matHeaderCellDef>Insurance No</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.patient_insurance.length>0 ? item.patient_insurance[0].ins_card_no:'' }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="gender">
-      <mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.gender }}</mat-cell>
-    </ng-container>
-
+    <div mat-dialog-actions>
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
       <mat-cell *matCellDef="let item"> 
-        <button class='action-button' mat-mini-fab color="primary" aria-label="edit patient icon" matTooltip="edit patient" (click)="editPatient(item)">
-           <mat-icon>edit</mat-icon></button>
-        <button class='action-button' (click)="openAddDialog(item.patient_id)" mat-mini-fab color="primary" aria-label="add insurance icon" matTooltip="add insurance" [disabled]="item.patient_insurance.length>0 ? true : false">
-           <mat-icon>add</mat-icon></button>
+        <button  class='action-button' mat-raised-button color="primary" [mat-dialog-close]="item" (click)="applyOutData()">select</button>
       </mat-cell>
     </ng-container>
-  
-    <mat-header-row *matHeaderRowDef="['id','civil_id','first_name','mobile_no','card_no','gender','action']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['id','civil_id','first_name','mobile_no','card_no','gender','action'];"></mat-row>
+  </div>
+    <mat-header-row *matHeaderRowDef="['id','civil_id','mobile_no','action']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['id','civil_id','mobile_no','action'];"></mat-row>
   </mat-table>
   
 

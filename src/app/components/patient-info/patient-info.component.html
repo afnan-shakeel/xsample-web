@@ -1,0 +1,17 @@
+<mat-card *ngIf="patientInfo">    
+    <mat-card-header>
+        <div mat-card-avatar class="employee-avatar"></div>
+        <mat-card-title>{{patientInfo.first_name + ' ' + patientInfo.middle_name}}</mat-card-title>
+        <mat-card-subtitle>ID: {{patientInfo.patient_id}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>Civil Id: {{patientInfo.civil_id}}</p>
+        <p>Mobile: {{patientInfo.mobile}}</p>
+        <p>Gender: {{patientInfo.gender}}</p>
+        <p>DoB: {{patientInfo.dob}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="closeCard()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="editDialog(patientInfo)">Edit</button>
+    </mat-card-actions>
+</mat-card>

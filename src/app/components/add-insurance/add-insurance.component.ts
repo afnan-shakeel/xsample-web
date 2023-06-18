@@ -15,9 +15,9 @@ export class AddInsuranceComponent {
   insCompanies: any[] = []
   ngOnInit(){
     this.apiService.fetchData('insurance').subscribe(
-      (response)=>{
+      (response:any)=>{
         if(response.message != 'success') {
-          console.log('failed to fetch get:/insurance')
+          console.log('failed to fetch',response.data)
         }
         this.insCompanies = response.data
       }

@@ -27,7 +27,6 @@ export class SnackBarService {
                 break;
             default:
                 message = message;
-                console.log('default snack panel')
                 panelClass = '';
         }
 

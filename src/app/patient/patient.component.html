@@ -1,32 +1,7 @@
 <div class='container'>
-  <div>
-    <mat-drawer-container>
-      <mat-drawer mode='side' position='end' [opened]=false>
-        <h3>Drawer I am</h3>
-        <h3>Drawer I am</h3>
-        <h3>Drawer I am</h3>
-        <h3>Drawer I am</h3>
-      </mat-drawer>
-
-      <mat-drawer-content>
-        <mat-card class='search-card'>
-          <mat-card-header></mat-card-header>
-          <mat-card-content>
-            <app-patient-search (datasent)='handleEvent($event)'></app-patient-search>
-          </mat-card-content>
-        </mat-card>
-
-        <div *ngIf=true class="register-component">
-          <mat-card>
-            <mat-card-header><h3>Patient registeration</h3></mat-card-header>
-            <mat-card-content>
-              <app-patient-register [recievedData]="editEventData"/>
-            </mat-card-content>
-          </mat-card>  
-        </div>
-
-      </mat-drawer-content>
-
-    </mat-drawer-container>
+    <button mat-raised-button (click)="openSearchDialog()">Search patient with ID / Mobile / Civil ID</button>
+    <button mat-raised-button color="primary" (click)="openAddDialog()">ADD</button>
   </div>
+<div *ngIf="patientInfo">
+<app-patient-info [patientInfo]="patientInfo"></app-patient-info>
 </div>

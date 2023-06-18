@@ -1,5 +1,10 @@
 .container {
   margin: 10px;
+  padding: auto;
+}
+.container button {
+  margin: 10px;
+  padding: auto;
 }
 
 .column {

@@ -1,7 +1,7 @@
 
   .register-form {
-    align-items: end;
-    max-width: 80%;
+    /* align-items: end; */
+    /* max-width: 80%; */
     margin: 0 auto;
     padding: 20px;
     background-color: #f3f3f3;
@@ -27,4 +27,8 @@
   .form-button {
     padding: 8px;
     margin-right: 8px;
+  }
+
+  mat-hint {
+    font-size: 10px;
   }

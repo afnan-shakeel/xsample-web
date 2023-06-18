@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, ViewChild, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ApiService } from '../../ApiService';
 import { SnackBarService } from '../../services/snack-bar.service'
+import { NgForm } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-patient-register',
@@ -8,27 +10,42 @@ import { SnackBarService } from '../../services/snack-bar.service'
   styleUrls: ['./patient-register.component.css']
 })
 export class PatientRegisterComponent implements OnChanges {
-  constructor(private apiService: ApiService, private snackbar: SnackBarService) { }
-  gender: any[] = [{ value: 'M', text: 'MALE' }, { id: 'F', text: 'FEMALE' }]
+  constructor(private apiService: ApiService,
+    private cdr: ChangeDetectorRef,
+    private snackbar: SnackBarService,
+    public dialogRef: MatDialogRef<PatientRegisterComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
+  gender: any[] = [{ value: 'M', text: 'MALE' }, { value: 'F', text: 'FEMALE' }]
 
-  formData: any = {}
+  // formData: any = {}
+  @ViewChild('formData') formData?: NgForm;
   calculatedAge!: number;
   insuranceCompany: any[] = []
-  @Input() recievedData: any;
+  @Input() editData: any;
 
   ngOnInit() {
     this.apiService.fetchData('insurance').subscribe(
-      (response) => {
+      (response: any) => {
         console.log('ins res ', response)
         if (response.message != 'success') {
           this.snackbar.openSnackbar('error', 'failed to fetch insurance list')
         }
         this.insuranceCompany = response.data
       },
-      (error) => {
+      (error: any) => {
         console.error(error)
       }
-    )
+    );
+  }
+  ngAfterViewInit(): void {
+    this.editData = this.data.editEventData
+    var formValues = this.normEditData(this.editData)
+    setTimeout(() => {
+      this.formData?.form.patchValue(formValues)
+    }, 0);
+
+    this.cdr.detectChanges();
   }
   calculateAge(dateOfBirth: any) {
     const today = new Date();
@@ -43,19 +60,19 @@ export class PatientRegisterComponent implements OnChanges {
 
     return age;
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.recievedData && changes.recievedData.currentValue) {
-      console.log(changes.recievedData)
-      let temp_form = changes.recievedData.currentValue
-      if (temp_form.patient_insurance.length > 0) {
-        for (let item of Object.keys(temp_form.patient_insurance[0])) {
-          console.log(item)
-          temp_form[item] = temp_form.patient_insurance[0][item]
-        }
-        console.log('temp_obj ', temp_form)
+  normEditData(edit_data: any) {
+    let temp_form = edit_data
+    if (temp_form.patient_insurance.length > 0) {
+      for (let item of Object.keys(temp_form.patient_insurance[0])) {
+        temp_form[item] = temp_form.patient_insurance[0][item]
       }
-      this.formData = temp_form
     }
+    temp_form.age = this.calculateAge(temp_form.dob)
+    console.log("temp_form", temp_form)
+    return temp_form
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+
   }
   onDobChange(date: any) {
     this.calculatedAge = this.calculateAge(date)
@@ -63,23 +80,29 @@ export class PatientRegisterComponent implements OnChanges {
   }
 
   resetForm() {
-    this.formData = {}
+    this.formData?.resetForm()
   }
 
-  onSubmit(formData: any) {
-    if (Object.keys(formData).length == 0 || !formData.civil_id || !formData.mobile_no) {
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
       this.snackbar.openSnackbar('error', 'fill required fields')
       return
     }
-    const payload = formData
+    const payload = form.value
     console.log('reg payload', payload)
-
-    this.apiService.submitData('patient/register', payload).subscribe(
+    if (payload.ins_id == "") payload.ins_id = null
+    // if (payload.dob == "") payload.dob = null
+    Object.keys(payload).forEach(key => {
+      if(payload[key]==="") payload[key]=null;
+    });
+    this.apiService.postData('patient/register', payload).subscribe(
       (response: any) => {
         console.log(response)
         if (response.message.toLowerCase() == 'success') {
+          this.editData = null
+          this.resetForm()
+          window.location.reload();
           this.snackbar.openSnackbar('success', 'registered')
-          this.formData = {}
         } else {
           this.snackbar.openSnackbar('error', response.data)
         }

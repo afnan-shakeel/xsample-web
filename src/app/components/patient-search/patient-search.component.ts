@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ApiService } from '../../ApiService';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddInsuranceComponent } from '../add-insurance/add-insurance.component'
 import { SnackBarService } from '../../services/snack-bar.service'
 
@@ -21,12 +21,13 @@ export class PatientSearchComponent {
 
   fetchData() {
     this.apiService.fetchData('patient').subscribe(
-      (response) => {
+      (response: any) => {
         console.log(response.data)
         this.allSuggestions = response.data
 
+
       },
-      (error) => {
+      (error: any) => {
         console.error(error)
       }
     )
@@ -34,7 +35,6 @@ export class PatientSearchComponent {
 
   @Output() datasent = new EventEmitter<string>();
   onInputChange() {
-    console.log('searching')
     this.generateSuggestions()
   }
   generateSuggestions() {
@@ -60,17 +60,14 @@ export class PatientSearchComponent {
       if (result) {
         var payload = result
         payload.patient_id = patient_id
-        this.apiService.submitData('insurance/register-patient', payload).subscribe(
+        this.apiService.postData('insurance/register-patient', payload).subscribe(
           (response: any) => {
             if (response.message != 'success') {
               console.log('err res', response.data)
               this.snackbar.openSnackbar('error', 'insurance register failed')
               throw Error('failed')
             }
-            // this.fetchData()
-            // this.generateSuggestions()
             this.snackbar.openSnackbar('success', 'insurance register success')
-            console.log('add apt ins res', response)
           },
           (error: any) => {
             console.log('err res', error)
@@ -85,8 +82,11 @@ export class PatientSearchComponent {
   editPatient(data: any) {
     var el = document.querySelector(".register-form")
     el?.scrollIntoView()
-    this.datasent.emit(data)
+    this.datasent.emit(data)  
   }
-  addDrawer() {
+  @Output() testOutData = new EventEmitter<string>();
+  applyOutData() {
+    this.testOutData.emit("testOutData")
+    console.log('click applyOutData')
   }
 }

@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import { FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef,MatDialog,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -31,10 +30,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { PatientRegisterComponent } from './components/patient-register/patient-register.component';
 import { AddInsuranceComponent } from './components/add-insurance/add-insurance.component';
 import { InsuranceRegisterComponent } from './components/insurance-register/insurance-register.component';
+import { ApiService } from './ApiService';
+import { PatientInfoComponent } from './components/patient-info/patient-info.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: PatientComponent },
+  { path: '', redirectTo: '/patient', pathMatch: 'full' },
+  { path: 'patient', component: PatientComponent },
   { path: 'insurance', component: InsuranceComponent },
 ];
 
@@ -44,22 +45,24 @@ const routes: Routes = [
     AppComponent,
     NavbarComponent,
     PatientComponent,
+    InsuranceComponent,
     PatientSearchComponent,
     PatientRegisterComponent,
     AddInsuranceComponent,
-    InsuranceComponent,
     InsuranceRegisterComponent,
+    PatientInfoComponent,
+    
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
-    MatPaginatorModule,
     MatToolbarModule,
     MatListModule,
+    
     MatTooltipModule,
     MatDividerModule,
     MatDialogModule,
-    
+    ReactiveFormsModule,
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
@@ -79,7 +82,7 @@ const routes: Routes = [
     MatGridListModule
   ],
   exports:[RouterModule],
-  providers: [],
+  providers: [ApiService,MatDialog,{provide:MatDialogRef,useValue:{}},{ provide: MAT_DIALOG_DATA, useValue: {} }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
