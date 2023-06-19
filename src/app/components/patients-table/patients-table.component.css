@@ -5,3 +5,7 @@
 .table-container {
     max-height: 250px;
   }
+.table-header {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}

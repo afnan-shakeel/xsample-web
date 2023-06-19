@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Input, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PatientRegisterComponent } from '../patient-register/patient-register.component';
 
 @Component({
@@ -8,20 +8,13 @@ import { PatientRegisterComponent } from '../patient-register/patient-register.c
   styleUrls: ['./patient-info.component.css']
 })
 export class PatientInfoComponent {
-  constructor(public dialog: MatDialog){}
-  @Input() patientInfo: any;
+  constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<PatientInfoComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ){ }
+  patientInfo: any = this.data;
 
   closeCard(){
     this.patientInfo = null
-  }
-  editDialog(data: any){
-    console.log('patientInfo to edit',data)
-    const editDialogRef = this.dialog.open(PatientRegisterComponent,{data:{editEventData: data}})
-    editDialogRef.afterClosed().subscribe(
-      (result)=>{
-        console.log('afterClosed of edit dialog', result)
-      }
-    )
-
+    this.dialogRef.close()
   }
 }

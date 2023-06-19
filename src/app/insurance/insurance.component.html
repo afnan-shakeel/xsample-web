@@ -1,16 +1,16 @@
 <div>  
-<mat-table [dataSource]="insuranceData">
+<table mat-table [dataSource]="insuranceData">
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>Insurance ID</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.ins_id }}</mat-cell>
+      <th mat-header-cell *matHeaderCellDef>Insurance ID</th>
+      <td mat-cell *matCellDef="let item">{{ item.ins_id }}</td>
     </ng-container>
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Company Name</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.company_name }}</mat-cell>
+      <th mat-header-cell *matHeaderCellDef>Company Name</th>
+      <td mat-cell *matCellDef="let item">{{ item.company_name }}</td>
     </ng-container>
-    <mat-header-row *matHeaderRowDef="['id','name']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['id','name'];"></mat-row>
-  </mat-table>
+    <th mat-header-row *matHeaderRowDef="['id','name']"></th>
+    <tr mat-row *matRowDef="let row; columns: ['id','name'];"></tr>
+  </table>
 </div>
   <button class="bottom-right-button" mat-icon-button color="white" (click)="toggleDrawer()" aria-label="add icon">
     <mat-icon>add</mat-icon>

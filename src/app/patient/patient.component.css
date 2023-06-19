@@ -17,12 +17,15 @@
 .app-patient-search{
   margin-left: 20px;
 }
-.xsc {
+.grid-content {
   /* width: 100%;  */
-  /* overflow-y: auto; */
   background-color: white;
 }
-
+.grid-header{
+  font-weight: bold;
+  padding: 8px;
+  /* margin: 12px 50px; */
+}
 button {
   padding: 12px;
   margin-left: 8px;

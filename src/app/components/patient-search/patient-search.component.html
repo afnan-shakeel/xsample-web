@@ -1,8 +1,25 @@
 
 <div class='input-search'>
-<mat-form-field>
-  <mat-icon matPrefix>search</mat-icon>
-  <input matInput type="search" [(ngModel)]="searchTerm" placeholder="Search with Id / mobile">
+  <mat-form-field appearance="outline">
+  <mat-label>Patient ID</mat-label>
+  <input matInput [(ngModel)]="searchPatId" placeholder="Search with Id">
 </mat-form-field>
-<button mat-flat-button color="primary" (click)="onSearch()">search</button>
+<mat-form-field appearance="outline">
+  <mat-label>Civil no</mat-label>
+  <input matInput [(ngModel)]="searchCivilId" placeholder="Search with Civil No">
+</mat-form-field>
+<mat-form-field appearance="outline">
+  <mat-label>Mobile</mat-label>
+  <input matInput [(ngModel)]="searchMobile" placeholder="Search with mobile">
+</mat-form-field>
+</div>
+  <div class="name-search">
+    <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="searchName" placeholder="Search with name">
+  </mat-form-field>
+  </div>
+<div>
+<button class='clear-button' mat-flat-button color="primary" (click)="clearInputs()">clear</button>
+<button class='search-button' mat-flat-button color="primary" (click)="onSearch()">search</button>
 </div>

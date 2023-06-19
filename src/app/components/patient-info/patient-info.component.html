@@ -1,17 +1,26 @@
 <mat-card *ngIf="patientInfo">    
     <mat-card-header>
-        <div mat-card-avatar class="employee-avatar"></div>
+        <div mat-card-avatar class="patient-avatar"></div>
         <mat-card-title>{{patientInfo.first_name + ' ' + patientInfo.middle_name}}</mat-card-title>
-        <mat-card-subtitle>ID: {{patientInfo.patient_id}}</mat-card-subtitle>
+        <mat-card-subtitle><strong>ID: </strong>{{patientInfo.patient_id}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <p>Civil Id: {{patientInfo.civil_id}}</p>
-        <p>Mobile: {{patientInfo.mobile}}</p>
-        <p>Gender: {{patientInfo.gender}}</p>
-        <p>DoB: {{patientInfo.dob}}</p>
+        <div class="text-item">
+        <p><strong>Civil Id:</strong> {{ patientInfo.civil_id }}</p>
+        <p><strong>Full Name: </strong>{{ (patientInfo.first_name || '') +' '+
+                     (patientInfo.middle_name || '') +' '+ 
+                     (patientInfo.last_name || '') }}</p>
+        <p><strong>Mobile: </strong>{{patientInfo.mobile_no}}</p>
+        <p><strong>Gender: </strong>{{patientInfo.gender}}</p>
+        <p><strong>DoB: </strong>{{patientInfo.dob.split('T')[0]}}</p>
+        <p *ngIf="patientInfo.patient_insurance.length>0"><strong>Insurance ID: </strong>
+            <mat-list>
+                <mat-list-item *ngFor="let item of patientInfo.patient_insurance">{{item.ins_card_no}}</mat-list-item>
+            </mat-list>
+            </p>
+        </div>
     </mat-card-content>
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="closeCard()">Cancel</button>
-        <button mat-raised-button color="primary" (click)="editDialog(patientInfo)">Edit</button>
     </mat-card-actions>
 </mat-card>

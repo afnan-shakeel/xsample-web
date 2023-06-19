@@ -1,5 +1,15 @@
 button {
     padding: 12px;
     margin-left: 4px;
-    /* width: min-content; */
+    width: 270px;
 }
+.patient-avatar {
+    width: 64px;
+    height: 64px;
+    background-color: #ccc;
+    /* Add any additional styling for the avatar */
+  }
+
+  .text-item{
+    padding: 4px;
+  }

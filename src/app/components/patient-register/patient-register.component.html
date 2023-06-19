@@ -1,13 +1,11 @@
 <form class="patient-form" [formGroup]="patientForm"  (ngSubmit)="onSubmit()">
   <div>
         <input matInput type="number" name="patient_id" formControlName="patient_id" hidden>
-        <mat-form-field>
             <mat-label>Civil No </mat-label>
-            <input matInput type="number" name="civil_id" id="civil_id" formControlName="civil_id" required [readonly]='editData ? true: false'>
-          </mat-form-field>
+            <input matInput type="number" name="civil_id" id="civil_id" formControlName="civil_id" [readonly]='editData ? true: false'>
         <mat-form-field>
             <mat-label>Mobile </mat-label>
-            <input matInput type="number" name="mobile_no" formControlName="mobile_no" required>
+            <input matInput type="number" name="mobile_no" formControlName="mobile_no">
           </mat-form-field>
         <div class='name-fields'>
     <mat-form-field>
@@ -60,7 +58,7 @@
 
             <mat-form-field>
               <mat-label>Insurance Id</mat-label>
-              <input matInput formControlName="ins_card_no" type="text" name="ins_card_no" required>
+              <input matInput formControlName="ins_card_no" type="text" name="ins_card_no">
             </mat-form-field>
                 <mat-form-field>
                   <mat-label>insurance valid from</mat-label>
@@ -76,7 +74,7 @@
                     <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
                   <mat-datepicker #picker3></mat-datepicker>
               </mat-form-field>
-              <button mat-icon-button color="warn" type="button" matTooltip="remove field" (click)="removeInusrance(i)">
+              <button mat-icon-button color="warn" type="button" matTooltip="remove insurance" (click)="removeInusrance(i)">
                 <mat-icon>cancel</mat-icon> </button>
           
         </div>

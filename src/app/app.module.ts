@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NzButtonModule,NzButtonSize  } from 'ng-zorro-antd/button';
+
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatDialogModule, MatDialogRef,MatDialog,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -14,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar'
 import { HttpClientModule } from '@angular/common/http'
 import {MatCardModule} from '@angular/material/card';
+import { ToastrModule } from 'ngx-toastr';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import { AppComponent } from './app.component';
@@ -26,6 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { PatientSearchComponent } from './components/patient-search/patient-search.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PatientRegisterComponent } from './components/patient-register/patient-register.component';
 import { AddInsuranceComponent } from './components/add-insurance/add-insurance.component';
@@ -57,10 +63,17 @@ const routes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(routes),
+    NgbModule,
     BrowserModule,
+
+    NzButtonModule,
+
     MatToolbarModule,
     MatListModule,
-    
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass:'toast-top-center'
+    }),
     MatTooltipModule,
     MatDividerModule,
     MatDialogModule,
