@@ -28,17 +28,10 @@ export class PatientComponent {
   }
   isDrawerOpen = false;
 
-  toggleRegisterDrawer(){
-    this.isDrawerOpen = !this.isDrawerOpen
-  }
-  handleCancelEvent(data: any){
-    console.log("this.handleCancelEvent",data)
-    if(data) this.toggleRegisterDrawer()
-  }
   @Input() editEventData: any;
-  handleEvent(data: any){
+  handlePatEdit(data: any){
     this.editEventData = data
-    console.log('recieved data from search',this.editEventData)
+    console.log('recieved data from sugg edit',this.editEventData)
 
   }
   patientInfo: any;

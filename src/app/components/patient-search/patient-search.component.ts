@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { ApiService } from '../../ApiService';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddInsuranceComponent } from '../add-insurance/add-insurance.component'
 import { SnackBarService } from '../../services/snack-bar.service'
+import { PatientsTableComponent } from '../patients-table/patients-table.component';
 
 
 @Component({
@@ -24,8 +25,6 @@ export class PatientSearchComponent {
       (response: any) => {
         console.log(response.data)
         this.allSuggestions = response.data
-
-
       },
       (error: any) => {
         console.error(error)
@@ -34,8 +33,9 @@ export class PatientSearchComponent {
   }
 
   @Output() datasent = new EventEmitter<string>();
-  onInputChange() {
+  onSearch() {
     this.generateSuggestions()
+    this.openPatientTable(this.suggestions)
   }
   generateSuggestions() {
     this.suggestions = []
@@ -53,7 +53,18 @@ export class PatientSearchComponent {
       }
     }
   }
-
+  @Input() editData = ""
+  @Output() patEditEvent = new EventEmitter<any>();
+  openPatientTable(data:any){
+    const patTableDialog = this.dialog.open(PatientsTableComponent,{data:{ rows:this.suggestions}})
+    patTableDialog.afterClosed().subscribe(
+      (result)=>{
+        this.editData = result
+        this.patEditEvent.emit(this.editData)
+        console.log("dualog",this.editData)
+      }
+    )
+  }
   openAddDialog(patient_id: number): void {
     const dialogRef = this.dialog.open(AddInsuranceComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -80,8 +91,8 @@ export class PatientSearchComponent {
     );
   }
   editPatient(data: any) {
-    var el = document.querySelector(".register-form")
-    el?.scrollIntoView()
+    // var el = document.querySelector(".register-form")
+    // el?.scrollIntoView()
     this.datasent.emit(data)  
   }
   @Output() testOutData = new EventEmitter<string>();

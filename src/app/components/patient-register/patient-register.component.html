@@ -1,91 +1,104 @@
-<form mat-dialog-content class="register-form" #formData="ngForm"  (ngSubmit)="onSubmit(formData)">
-  <div *ngIf="editData">{{editData}}</div>  
+<form class="patient-form" [formGroup]="patientForm"  (ngSubmit)="onSubmit()">
   <div>
-        <input matInput type="number" name="patient_id" ngModel hidden>
+        <input matInput type="number" name="patient_id" formControlName="patient_id" hidden>
         <mat-form-field>
             <mat-label>Civil No </mat-label>
-            <input matInput type="number" name="civil_id" id="civil_id" ngModel required [readonly]='editData ? true: false'>
+            <input matInput type="number" name="civil_id" id="civil_id" formControlName="civil_id" required [readonly]='editData ? true: false'>
           </mat-form-field>
         <mat-form-field>
             <mat-label>Mobile </mat-label>
-            <input matInput type="number" name="mobile_no" ngModel required>
+            <input matInput type="number" name="mobile_no" formControlName="mobile_no" required>
           </mat-form-field>
         <div class='name-fields'>
     <mat-form-field>
       <mat-label>First Name</mat-label>
-      <input matInput type="text" ngModel name="first_name" >
+      <input matInput type="text" formControlName="first_name" name="first_name" >
     </mat-form-field>
     <mat-form-field>
       <mat-label>Middle Name</mat-label>
-      <input matInput type="text" ngModel name="middle_name" >
+      <input matInput type="text" formControlName="middle_name" name="middle_name" >
     </mat-form-field>
     <mat-form-field>
       <mat-label>Last Name</mat-label>
-      <input matInput type="text" ngModel name="last_name" >
+      <input matInput type="text" formControlName="last_name" name="last_name" >
     </mat-form-field>
     </div>
     <div class='form-section2'>
     <mat-form-field>
         <mat-label>DOB</mat-label>
-        <input matInput [matDatepicker]="picker" name="dob" ngModel (dateChange)="onDobChange(formData.value.dob)" >
+        <input matInput [matDatepicker]="picker" name="dob" formControlName="dob" [max]="today" (dateChange)="onDobChange(patientForm.value.dob)" >
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Age</mat-label>
-        <input matInput type="text" name="age" [(ngModel)]="calculatedAge" [readonly]=true>
+        <input matInput type="text" name="age" [(ngModel)]="calculatedAge" [ngModelOptions]="{standalone: true}" [readonly]=true>
       </mat-form-field>
 
     <mat-form-field>
     <mat-label>Gender</mat-label>
-      <mat-select name="gender" ngModel>
+      <mat-select name="gender" formControlName="gender">
         <mat-option *ngFor="let option of gender" [value]="option.value">{{option.text}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-    
-    <table>
-    <mat-form-field *ngIf="insuranceCompany.length>0">
-    <mat-label>Insurance company</mat-label>
-      <mat-select  name="ins_id" ngModel disableRipple>
-        <mat-option>-- --</mat-option>
-        <mat-option *ngFor="let option of insuranceCompany" [value]="option.ins_id">{{option.company_name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+
+    <div formArrayName="insurance" class="insurance-box">
+      <div *ngFor="let insurance of insuranceControls.controls; let i = index" [formGroupName]="i">
+        <div>
+          <p>{{ i+1 }}</p>
+
+          <input matInput formControlName="pat_ins_id" type="text" name="pat_ins_id" hidden>
+          <mat-form-field *ngIf="insuranceCompany.length>0">
+            <mat-label>Insurance company</mat-label>
+              <mat-select  name="ins_id" formControlName="ins_id" disableRipple>
+                <mat-option>-- --</mat-option>
+                <mat-option *ngFor="let option of insuranceCompany" [value]="option.ins_id">{{option.company_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Insurance Id</mat-label>
+              <input matInput formControlName="ins_card_no" type="text" name="ins_card_no" required>
+            </mat-form-field>
+                <mat-form-field>
+                  <mat-label>insurance valid from</mat-label>
+                    <input matInput formControlName="valid_from" name="valid_from" [matDatepicker]="picker2"  placeholder="insurance valid from">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field>
+                  <mat-label>insurance valid upto</mat-label>
+                    <input matInput formControlName="valid_upto" name="valid_upto" [matDatepicker]="picker3"  placeholder="insurance valid upto">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                  <mat-datepicker #picker3></mat-datepicker>
+              </mat-form-field>
+              <button mat-icon-button color="warn" type="button" matTooltip="remove field" (click)="removeInusrance(i)">
+                <mat-icon>cancel</mat-icon> </button>
+          
+        </div>
+        
+        </div>
+      </div>
+      <button mat-stroked-button type="button" color="primary" (click)="addInsurance()">{{patientForm.value.insurance.length>0? 'Add more Insurance': 'Add insurance'}}</button>
     
   
-      <mat-form-field>
-        <mat-label>Insurance Id</mat-label>
-        <input matInput ngModel type="text" name="ins_card_no" [disabled]="formData.value.ins_id ? false: true">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>insurance valid from</mat-label>
-          <input matInput ngModel name="valid_from" [matDatepicker]="picker2"  placeholder="insurance valid from" [disabled]="formData.value.ins_id ? false: true">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>insurance valid upto</mat-label>
-          <input matInput ngModel name="valid_upto" [matDatepicker]="picker3"  placeholder="insurance valid upto" [disabled]="formData.value.ins_id ? false: true">
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
-        <mat-datepicker #picker3></mat-datepicker>
-    </mat-form-field>
-
 
     <div class=''>
     <mat-form-field>
         <mat-label>Address</mat-label>
-        <textarea matInput ngModel type="text" name="address" ></textarea>
+        <textarea matInput formControlName="address" type="text" name="address" ></textarea>
       </mat-form-field>
     </div>
 
-    <div mat-dialog-actions>
-    <button  class="form-button" [mat-dialog-close]="data.editEventData" type="button" mat-raised-button color="primary" (click)="resetForm()">Reset</button>
-    <button *ngIf="!editData" type="submit" class="form-button" mat-raised-button color="primary" [disabled]="formData.invalid">SUBMIT</button>
-    <button *ngIf="editData" type="submit" class="form-button" mat-raised-button color="primary">UPDATE</button>
+    <div>
+    <button *ngIf="!editData" class="form-button" type="button" mat-raised-button color="primary" (click)="resetForm()">Reset</button>
+    <button *ngIf="editData" class="form-button" type="button" mat-raised-button color="primary" (click)="resetForm()">Cancel</button>
+    <button *ngIf="!editData" type="submit" class="form-button" mat-raised-button color="primary" [disabled]="patientForm.invalid">SUBMIT</button>
+    <button *ngIf="editData" type="submit" class="form-button" mat-raised-button color="primary" [disabled]="patientForm.invalid">UPDATE</button>
     </div>
 </div>
 </form>

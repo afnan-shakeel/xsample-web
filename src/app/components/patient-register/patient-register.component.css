@@ -1,19 +1,21 @@
 
-  .register-form {
+  .patient-form {
     /* align-items: end; */
-    /* max-width: 80%; */
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f3f3f3;
+    max-width: 90%;
+    margin: auto;
+    padding: 16px;
+    background-color: whitesmoke;
   }
   
-  .register-form mat-form-field {
+  .patient-form mat-form-field {
     /* width: 100%; */
     padding: 8px;
-    height: fit-content;
+
     /* margin-bottom: 20px; */
   }
-  
+  .mat-icon {
+    /* font-size: 16px; Adjust the font-size to your desired size */
+  }
   .name-fields {
     display: flex;
     /* padding: 8px; */
@@ -31,4 +33,9 @@
 
   mat-hint {
     font-size: 10px;
+  }
+
+  button {
+    padding: 12px;
+    margin: 4px;
   }

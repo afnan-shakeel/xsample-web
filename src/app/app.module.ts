@@ -32,6 +32,7 @@ import { AddInsuranceComponent } from './components/add-insurance/add-insurance.
 import { InsuranceRegisterComponent } from './components/insurance-register/insurance-register.component';
 import { ApiService } from './ApiService';
 import { PatientInfoComponent } from './components/patient-info/patient-info.component';
+import { PatientsTableComponent } from './components/patients-table/patients-table.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/patient', pathMatch: 'full' },
@@ -51,6 +52,7 @@ const routes: Routes = [
     AddInsuranceComponent,
     InsuranceRegisterComponent,
     PatientInfoComponent,
+    PatientsTableComponent,
     
   ],
   imports: [

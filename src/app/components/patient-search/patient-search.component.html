@@ -1,35 +1,8 @@
 
-<div mat-dialog-content class='input-search'>
+<div class='input-search'>
 <mat-form-field>
   <mat-icon matPrefix>search</mat-icon>
-  <input matInput class='input-search' type="search" [(ngModel)]="searchTerm" (input)="onInputChange()" placeholder="Search...">
+  <input matInput type="search" [(ngModel)]="searchTerm" placeholder="Search with Id / mobile">
 </mat-form-field>
-</div>
-<div class='search-record'>
-<mat-table *ngIf="suggestions.length>0" [dataSource]="suggestions">
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.patient_id }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="civil_id">
-      <mat-header-cell *matHeaderCellDef>CIVIL</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.civil_id }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="mobile_no">
-      <mat-header-cell *matHeaderCellDef>Mobile</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.mobile_no }}</mat-cell>
-    </ng-container>
-    <div mat-dialog-actions>
-    <ng-container matColumnDef="action">
-      <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-      <mat-cell *matCellDef="let item"> 
-        <button  class='action-button' mat-raised-button color="primary" [mat-dialog-close]="item" (click)="applyOutData()">select</button>
-      </mat-cell>
-    </ng-container>
-  </div>
-    <mat-header-row *matHeaderRowDef="['id','civil_id','mobile_no','action']"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: ['id','civil_id','mobile_no','action'];"></mat-row>
-  </mat-table>
-  
-
+<button mat-flat-button color="primary" (click)="onSearch()">search</button>
 </div>

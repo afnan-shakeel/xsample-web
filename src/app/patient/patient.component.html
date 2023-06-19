@@ -1,7 +1,19 @@
-<div class='container'>
-    <button mat-raised-button (click)="openSearchDialog()">Search patient with ID / Mobile / Civil ID</button>
-    <button mat-raised-button color="primary" (click)="openAddDialog()">ADD</button>
+<div class='grid-container'>
+  <div class='grid-item'>
+    <div class='app-patient-search'>
+  <app-patient-search (patEditEvent)="handlePatEdit($event)"></app-patient-search>
+    </div>
+    <button mat-flat-button color="primary" (click)="openSearchDialog()" hidden=true>Search patient with ID / Mobile / Civil ID</button>
+    <button mat-raised-button color="primary" (click)="openAddDialog()" hidden=true>ADD</button>
   </div>
-<div *ngIf="patientInfo">
-<app-patient-info [patientInfo]="patientInfo"></app-patient-info>
+  <div class='grid-item'>
+  <mat-card class='xsc'>
+    <mat-card-header></mat-card-header>
+    <mat-card-content>
+    <app-patient-register [editData]="editEventData"></app-patient-register>
+    </mat-card-content>
+  </mat-card>
 </div>
+
+</div>
+

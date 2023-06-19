@@ -1,48 +1,33 @@
-.container {
-  margin: 10px;
-  padding: auto;
-}
+
 .container button {
   margin: 10px;
   padding: auto;
 }
 
-.column {
-  flex: auto;
+.grid-container {
+  display: list-item;
+  gap: 10px;
+}
+.grid-item {
   margin: 10px;
+  padding: 20px;
+  height: fit-content;
+  /* width: 100%; */
+}
+.app-patient-search{
+  margin-left: 20px;
+}
+.xsc {
+  /* width: 100%;  */
+  /* overflow-y: auto; */
+  background-color: white;
 }
 
-.search-card {
-  display: flex;
-}
-/* .search-card app-patient-search{
-  flex: 0;
-  width: max-content;
-} */
-.search-component {
-  padding: 10px;
-  display: flex;
-
-  
-}
-.search-component input{
-  flex: 1;
-  width: auto;
-}
-.search-component button{
-  width: auto;
+button {
+  padding: 12px;
+  margin-left: 8px;
 }
 
-.register-component mat-card {
-  width: auto;
-  padding: 4px;
-}
-
-.register-container {
-  height: 100vh;
-  width: max-content;
-  display: flex;
-}
 
 mat-drawer {
   background-color: #f2f2f2;
